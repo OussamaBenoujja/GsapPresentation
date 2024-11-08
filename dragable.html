@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP Draggable with Color Change</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/Draggable.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        #draggableBox {
+            width: 150px;
+            height: 150px;
+            background-color: hsl(0, 70%, 50%); /* Starting color: red */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s; /* Smooth transition for color changes */
+        }
+    </style>
+</head>
+<body>
+    <div id="draggableBox">Drag Me</div>
+
+    <script>
+        gsap.registerPlugin(Draggable);
+
+        // Make the #draggableBox element draggable
+        Draggable.create("#draggableBox", {
+            type: "x,y",            
+            bounds: "body",         
+            edgeResistance: 0.65,   
+            inertia: true,          
+
+            // Callback to update the color based on position
+            onDrag: function() {
+                // Calculate the hue based on the x position
+                let hue = (this.x / window.innerWidth) * 360;
+                hue = hue % 360; // Keep hue within 0-360 range
+
+                // Apply the color change
+                gsap.to(this.target, {
+                    backgroundColor: `hsl(${hue}, 70%, 50%)`,
+                    duration: 0.2
+                });
+            }
+        });
+    </script>
+</body>
+</html>

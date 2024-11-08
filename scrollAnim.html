@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP ScrollTrigger Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 200vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        #box {
+            width: 150px;
+            height: 150px;
+            background-color: #3498db;
+            margin: 50px;
+            position: relative;
+        }
+        #trigger {
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <div id="trigger"></div> <!-- Invisible element used for scroll trigger -->
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Create ScrollTrigger animation for the box
+        gsap.to("#box", {
+            x: 500,                      // Move the box to the right by 500px
+            duration: 1,                  // Duration of the animation (1 second)
+            scrollTrigger: {
+                trigger: "#trigger",      // Element that triggers the animation
+                start: "top center",      // Animation starts when the top of the trigger hits the center of the viewport
+                end: "bottom top",        // Animation ends when the bottom of the trigger hits the top of the viewport
+                scrub: true,              // Scrub the animation to the scroll position
+                markers: true             // Show debug markers (optional)
+            }
+        });
+    </script>
+</body>
+</html>
